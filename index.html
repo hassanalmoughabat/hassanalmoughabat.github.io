@@ -107,6 +107,7 @@ h2 { font: 800 clamp(40px, 5vw, 60px)/.95 var(--display); text-transform: upperc
 }
 .project:target, .project.flash { border-color: var(--teal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 25%, transparent); }
 .project.feature { grid-column: span 2; }
+.project.wide { grid-column: 1 / -1; }
 @media (max-width: 760px) { .project.feature { grid-column: auto; } }
 .project h3 { font: 600 21px/1.2 var(--body); margin: 0; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .project h3 small { font: 400 12.5px var(--mono); color: var(--slate); }
@@ -130,7 +131,7 @@ footer { border-top: 1px solid var(--rule); margin-top: 72px; padding: 32px 0 48
     <div>
       <p class="where">42 Beirut · Lebanon</p>
       <h1><span>Hassan</span><span class="al">Al</span><span>Moughabat</span></h1>
-      <p class="lede">Software engineering student. I write C and C++ at the systems level, and build full-stack apps in TypeScript and Go.</p>
+      <p class="lede">Software engineering student. I write C and C++ at the systems level, and build full-stack apps in TypeScript, Java and Go.</p>
       <nav class="links" aria-label="Contact">
         <a class="btn" href="https://github.com/hassanalmoughabat">GitHub</a>
         <a class="btn ghost" href="#curriculum">42 projects</a>
@@ -153,9 +154,16 @@ footer { border-top: 1px solid var(--rule); margin-top: 72px; padding: 32px 0 48
   <section class="group" id="curriculum">
     <div class="group-head">
       <h2><span class="key" style="background:var(--teal-dot)"></span>42 core</h2>
-      <p>42 is peer-graded and has no teachers. Every project is built from a subject PDF, has to pass the Norm, and gets defended line by line in front of other students. These start at libc and end at concurrency, shells and the STL.</p>
+      <p>42 is peer-graded and has no teachers. Every project is built from a subject PDF, has to pass the Norm, and gets defended line by line in front of other students. These start at libc and end with ft_transcendence, a full web platform built as a team.</p>
     </div>
     <div class="projects">
+      <article class="project feature wide" id="p-mosaic">
+        <h3>Mosaic <small>ft_transcendence · team of 2 · tech lead</small></h3>
+        <p>A three-sided car-rental marketplace, live at <a href="https://mosaics.live">mosaics.live</a>. Customers find and book cars. Rental companies run their fleet, branches and counter from a dashboard. Platform admins approve companies and customers before either can transact.</p>
+        <p class="hard"><b>The hard part:</b> one account model and one JWT scheme serving three kinds of user, a Postgres exclusion constraint that makes double-booking impossible at the database level, and bookings that update live over WebSockets. Stripe payments, Google and 42 sign-in, and English, French and Arabic (with right-to-left layout).</p>
+        <ul class="tags"><li>Spring Boot</li><li>Java 21</li><li>PostgreSQL</li><li>React</li><li>WebSockets</li><li>Stripe</li><li>Docker</li><li>Cloud Run</li></ul>
+        <a class="repo" href="https://mosaics.live">mosaics.live ↗</a>
+      </article>
       <article class="project feature" id="p-minishell">
         <h3>Minishell <small>C</small></h3>
         <p>A bash-like Unix shell: a prompt, a tokenizer, <code>$VAR</code> expansion, pipes, <code>&lt; &gt; &gt;&gt;</code> redirections, heredocs, and the builtins <code>echo cd pwd export unset env exit</code>.</p>
@@ -217,6 +225,13 @@ footer { border-top: 1px solid var(--rule); margin-top: 72px; padding: 32px 0 48
         <ul class="tags"><li>React</li><li>ReactFlow</li><li>Express</li><li>PostgreSQL</li><li>Drizzle</li><li>OpenAI</li></ul>
         <a class="repo" href="https://github.com/hassanalmoughabat/Cerebro">Cerebro ↗</a>
       </article>
+      <article class="project" id="p-masroof">
+        <h3>Masroof <small>مصروف · web + Android</small></h3>
+        <p>A USD / LBP expense tracker built for Lebanon. It tracks spending across several wallets and saves that day's exchange rate with every transaction, in English and Arabic.</p>
+        <p class="hard"><b>Stack:</b> React 19 with TanStack on the web, a NestJS + Prisma + PostgreSQL API, and Capacitor to ship the same frontend as an Android app.</p>
+        <ul class="tags"><li>React</li><li>TanStack</li><li>NestJS</li><li>Prisma</li><li>PostgreSQL</li><li>Capacitor</li></ul>
+        <span class="repo none">Private repository</span>
+      </article>
       <article class="project" id="p-arcvault">
         <h3>ArcVault triage <small>Python · n8n · LLM</small></h3>
         <p>An AI intake pipeline. It reads raw customer messages, then classifies, enriches, routes and escalates each one as a structured JSON record.</p>
@@ -263,13 +278,15 @@ footer { border-top: 1px solid var(--rule); margin-top: 72px; padding: 32px 0 48
     { id: "minishell", label: "minishell", r: 170, a: 55, kind: "cur", t: "p-minishell" },
     { id: "cub3d", label: "cub3D", r: 235, a: 150, kind: "wip", t: "p-cub3d" },
     { id: "cpp09", label: "cpp09", r: 235, a: 290, kind: "cur", t: "p-cpp09" },
+    { id: "mosaic", label: "mosaic", r: 235, a: 25, kind: "cur", t: "p-mosaic" },
     { id: "cerebro", label: "cerebro", r: 305, a: 10, kind: "own", t: "p-cerebro" },
     { id: "arcvault", label: "arcvault", r: 305, a: 82, kind: "own", t: "p-arcvault" },
+    { id: "masroof", label: "masroof", r: 305, a: 136, kind: "own", t: "p-masroof" },
     { id: "laser", label: "lasercraft", r: 305, a: 190, kind: "own", t: "p-laser" },
     { id: "transfer", label: "transfer", r: 305, a: 256, kind: "own", t: "p-transfer" },
     { id: "cyber", label: "cyber piscine", r: 305, a: 330, kind: "own", t: "p-cyber" }
   ];
-  var edges = [["libft","gnl"],["libft","printf"],["gnl","philo"],["printf","minishell"],["libft","minishell"],["philo","cub3d"],["minishell","cub3d"],["minishell","cpp09"],["philo","cpp09"]];
+  var edges = [["libft","gnl"],["libft","printf"],["gnl","philo"],["printf","minishell"],["libft","minishell"],["philo","cub3d"],["minishell","cub3d"],["minishell","cpp09"],["philo","cpp09"],["minishell","mosaic"],["cpp09","mosaic"]];
   var pos = {};
   nodes.forEach(function (n) {
     var rad = (n.a - 90) * Math.PI / 180;
