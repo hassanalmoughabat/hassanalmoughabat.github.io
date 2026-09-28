@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hassan Al Moughabat</title>
+<meta name="description" content="Software engineering student at 42 Beirut — C and C++ systems work, full-stack TypeScript, Go and AI workflows.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%2300A0A2'/><circle cx='16' cy='16' r='5' fill='%23E8EDEF'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #E8EDEF;
+  --card: #F4F7F8;
+  --ink: #0D1A22;
+  --slate: #5A6A73;
+  --rule: #C4CFD4;
+  --teal: #00898B;
+  --teal-dot: #00A0A2;
+  --amber: #B8741A;
+  --amber-dot: #E9A23B;
+  --display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --body: "Instrument Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0F181E; --card: #152229; --ink: #E3EAED; --slate: #93A3AB;
+    --rule: #2A3A42; --teal: #3CC7C9; --teal-dot: #22B5B7; --amber: #F0B559; --amber-dot: #E9A23B;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0F181E; --card: #152229; --ink: #E3EAED; --slate: #93A3AB;
+  --rule: #2A3A42; --teal: #3CC7C9; --teal-dot: #22B5B7; --amber: #F0B559; --amber-dot: #E9A23B;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 400 17px/1.55 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible, .node:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+@media (max-width: 600px) { .wrap { padding: 0 16px; } }
+
+/* ---------- hero ---------- */
+.hero {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+  gap: 40px; align-items: center; min-height: min(92vh, 860px); padding: 48px 0 24px;
+}
+@media (max-width: 900px) { .hero { grid-template-columns: 1fr; min-height: 0; padding-top: 40px; } }
+.where { font: 500 13px/1 var(--mono); color: var(--slate); letter-spacing: .04em; margin: 0 0 20px; }
+h1 {
+  font: 800 clamp(58px, 8.4vw, 124px)/.86 var(--display);
+  text-transform: uppercase; letter-spacing: -.01em; margin: 0 0 28px;
+}
+h1 span { display: block; }
+h1 .al { color: var(--teal); }
+.lede { font-size: 20px; line-height: 1.5; max-width: 30ch; margin: 0 0 28px; }
+.links { display: flex; flex-wrap: wrap; gap: 12px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px;
+  border: 1.5px solid var(--ink); border-radius: 999px; text-decoration: none;
+  font: 600 15px/1 var(--body); transition: background .15s, color .15s;
+}
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn.ghost { border-color: var(--rule); }
+.btn.ghost:hover { border-color: var(--ink); }
+
+/* ---------- graph ---------- */
+.graph-box { position: relative; }
+.graph { width: 100%; height: auto; display: block; overflow: visible; }
+.graph .ring { fill: none; stroke: var(--rule); stroke-width: 1; }
+.graph .ring.outer { stroke-dasharray: 3 6; stroke: var(--amber-dot); opacity: .6; }
+.graph .edge { stroke: var(--teal-dot); stroke-width: 1.5; opacity: .45; }
+.graph .node { cursor: pointer; outline: none; }
+.graph .node circle { transition: r .2s ease; }
+.graph .node.cur circle { fill: var(--teal-dot); }
+.graph .node.own circle { fill: var(--amber-dot); }
+.graph .node.wip circle { fill: var(--paper); stroke: var(--teal-dot); stroke-width: 2; stroke-dasharray: 3 3; }
+.graph .node text { font: 500 17px var(--mono); fill: var(--ink); paint-order: stroke; stroke: var(--paper); stroke-width: 5px; stroke-linejoin: round; }
+.graph .node:hover circle, .graph .node:focus-visible circle { r: 12; }
+.graph .node:focus-visible text { text-decoration: underline; }
+.legend { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 4px; font: 400 12.5px var(--mono); color: var(--slate); }
+.legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 7px; vertical-align: -1px; }
+@media (max-width: 600px) { .graph .node text { font-size: 24px; } }
+
+/* ---------- sections ---------- */
+section.group { padding: 72px 0 24px; border-top: 1px solid var(--rule); }
+.group-head { display: grid; grid-template-columns: 280px 1fr; gap: 32px; margin-bottom: 32px; }
+@media (max-width: 800px) { .group-head { grid-template-columns: 1fr; gap: 8px; } }
+h2 { font: 800 clamp(40px, 5vw, 60px)/.95 var(--display); text-transform: uppercase; margin: 0; }
+.group-head p { margin: 4px 0 0; color: var(--slate); max-width: 58ch; }
+.key { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 12px; vertical-align: 6px; }
+
+.projects { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+@media (max-width: 400px) { .projects { grid-template-columns: 1fr; } }
+.project {
+  background: var(--card); border: 1px solid var(--rule); border-radius: 14px;
+  padding: 22px 22px 18px; display: flex; flex-direction: column; gap: 10px;
+  scroll-margin-top: 24px; transition: border-color .2s, box-shadow .2s;
+}
+.project:target, .project.flash { border-color: var(--teal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 25%, transparent); }
+.project.feature { grid-column: span 2; }
+@media (max-width: 760px) { .project.feature { grid-column: auto; } }
+.project h3 { font: 600 21px/1.2 var(--body); margin: 0; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.project h3 small { font: 400 12.5px var(--mono); color: var(--slate); }
+.project p { margin: 0; }
+.project .hard { font-size: 15px; color: var(--slate); }
+.project .hard b { color: var(--ink); font-weight: 600; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 4px 0 0; }
+.tags li { font: 400 12.5px/1 var(--mono); padding: 6px 9px; border-radius: 6px; background: color-mix(in srgb, var(--ink) 6%, transparent); }
+.project .repo { margin-top: auto; padding-top: 8px; font: 500 14px var(--mono); color: var(--teal); text-decoration: none; }
+.own-group .project .repo { color: var(--amber); }
+.project .repo:hover { text-decoration: underline; }
+.project .repo.none { color: var(--slate); }
+
+footer { border-top: 1px solid var(--rule); margin-top: 72px; padding: 32px 0 48px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 15px; color: var(--slate); }
+.theme { background: none; border: 1px solid var(--rule); color: var(--ink); border-radius: 999px; padding: 6px 14px; font: 500 13px var(--mono); cursor: pointer; }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <div>
+      <p class="where">42 Beirut · Lebanon</p>
+      <h1><span>Hassan</span><span class="al">Al</span><span>Moughabat</span></h1>
+      <p class="lede">Software engineering student. I write C and C++ at the systems level, and build full-stack apps in TypeScript and Go.</p>
+      <nav class="links" aria-label="Contact">
+        <a class="btn" href="https://github.com/hassanalmoughabat">GitHub</a>
+        <a class="btn ghost" href="#curriculum">42 projects</a>
+        <a class="btn ghost" href="#built">Own projects</a>
+      </nav>
+    </div>
+    <div class="graph-box">
+      <svg class="graph" viewBox="-430 -350 860 700" role="img" aria-labelledby="gt">
+        <title id="gt">Project map. Libft at the center, 42 curriculum projects on rings around it, and my own projects on the outer ring.</title>
+        <g id="rings"></g><g id="edges"></g><g id="nodes"></g>
+      </svg>
+      <div class="legend" aria-hidden="true">
+        <span><i style="background:var(--teal-dot)"></i>42 curriculum</span>
+        <span><i style="border:2px dashed var(--teal-dot)"></i>in progress</span>
+        <span><i style="background:var(--amber-dot)"></i>own projects</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="group" id="curriculum">
+    <div class="group-head">
+      <h2><span class="key" style="background:var(--teal-dot)"></span>42 core</h2>
+      <p>42 is peer-graded and has no teachers. Every project is built from a subject PDF, has to pass the Norm, and gets defended line by line in front of other students. These start at libc and end at concurrency, shells and the STL.</p>
+    </div>
+    <div class="projects">
+      <article class="project feature" id="p-minishell">
+        <h3>Minishell <small>C</small></h3>
+        <p>A bash-like Unix shell: a prompt, a tokenizer, <code>$VAR</code> expansion, pipes, <code>&lt; &gt; &gt;&gt;</code> redirections, heredocs, and the builtins <code>echo cd pwd export unset env exit</code>.</p>
+        <p class="hard"><b>The hard part:</b> matching bash's behavior on quoting, exit codes and signals (Ctrl-C, Ctrl-D, Ctrl-\) across child processes without leaking a single file descriptor.</p>
+        <ul class="tags"><li>fork / execve</li><li>pipes</li><li>signals</li><li>readline</li></ul>
+        <a class="repo" href="https://github.com/hassanalmoughabat/MiniShell">MiniShell ↗</a>
+      </article>
+      <article class="project" id="p-philo">
+        <h3>Philosophers <small>C</small></h3>
+        <p>The Dining Philosophers problem with one POSIX thread per philosopher and a mutex per fork, plus a monitor thread that detects death to the millisecond.</p>
+        <p class="hard"><b>The hard part:</b> no deadlocks, no data races, and no starvation, at any philosopher count.</p>
+        <ul class="tags"><li>pthreads</li><li>mutexes</li><li>timing</li></ul>
+        <a class="repo" href="https://github.com/hassanalmoughabat/Philosophers_Project">Philosophers_Project ↗</a>
+      </article>
+      <article class="project" id="p-cpp09">
+        <h3>CPP Module 09 <small>C++98</small></h3>
+        <p>Three STL exercises: a Bitcoin price lookup built on <code>std::map</code>, a Reverse Polish Notation calculator on <code>std::stack</code>, and PmergeMe, an implementation of Ford-Johnson merge-insertion sort.</p>
+        <p class="hard"><b>The hard part:</b> keeping Ford-Johnson's comparison count under the theoretical bound, using Jacobsthal insertion order. There's a <a href="https://github.com/hassanalmoughabat/CPP09/blob/HEAD/FORD_JOHNSON_EXPLAINED.md">full write-up</a> in the repo.</p>
+        <ul class="tags"><li>STL</li><li>algorithms</li><li>C++98</li></ul>
+        <a class="repo" href="https://github.com/hassanalmoughabat/CPP09">CPP09 ↗</a>
+      </article>
+      <article class="project" id="p-cub3d">
+        <h3>cub3D <small>C · in progress</small></h3>
+        <p>A Wolfenstein-style raycaster built on MiniLibX. It turns a 2D map file into a first-person 3D view you can walk through.</p>
+        <ul class="tags"><li>raycasting</li><li>MiniLibX</li><li>graphics</li></ul>
+        <span class="repo none">Repository coming soon</span>
+      </article>
+      <article class="project" id="p-printf">
+        <h3>ft_printf <small>C</small></h3>
+        <p><code>printf</code> rebuilt from scratch with variadic arguments: <code>%c %s %p %d %i %u %x %X %%</code>.</p>
+        <ul class="tags"><li>stdarg</li><li>formatting</li></ul>
+        <a class="repo" href="https://github.com/hassanalmoughabat/FT_printf">FT_printf ↗</a>
+      </article>
+      <article class="project" id="p-gnl">
+        <h3>get_next_line <small>C</small></h3>
+        <p>Reads a file descriptor one line at a time, using a static buffer that works with any <code>BUFFER_SIZE</code>, and never leaks memory.</p>
+        <ul class="tags"><li>file I/O</li><li>static state</li><li>memory</li></ul>
+        <a class="repo" href="https://github.com/hassanalmoughabat/Get_Next_Line">Get_Next_Line ↗</a>
+      </article>
+      <article class="project" id="p-libft">
+        <h3>Libft <small>C</small></h3>
+        <p>The first 42 project: my own versions of libc's string, memory and conversion functions (<code>split</code>, <code>itoa</code>, <code>memmove</code> and more). Every later C project here builds on it.</p>
+        <ul class="tags"><li>libc</li><li>static library</li></ul>
+        <a class="repo" href="https://github.com/hassanalmoughabat/LibFT">LibFT ↗</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="group own-group" id="built">
+    <div class="group-head">
+      <h2><span class="key" style="background:var(--amber-dot)"></span>Own projects</h2>
+      <p>Built outside the curriculum: web apps, tools and an AI pipeline, using the stacks that companies actually ship on.</p>
+    </div>
+    <div class="projects">
+      <article class="project feature" id="p-cerebro">
+        <h3>Cerebro <small>TypeScript · full-stack</small></h3>
+        <p>A mind-mapping app with an interactive canvas where you create and connect nodes, and attach notes and tasks to them. It can also suggest new ideas with AI.</p>
+        <p class="hard"><b>Stack:</b> React and ReactFlow on the front end, an Express API, and PostgreSQL through Drizzle ORM, all sharing one typed schema.</p>
+        <ul class="tags"><li>React</li><li>ReactFlow</li><li>Express</li><li>PostgreSQL</li><li>Drizzle</li><li>OpenAI</li></ul>
+        <a class="repo" href="https://github.com/hassanalmoughabat/Cerebro">Cerebro ↗</a>
+      </article>
+      <article class="project" id="p-arcvault">
+        <h3>ArcVault triage <small>Python · n8n · LLM</small></h3>
+        <p>An AI intake pipeline. It reads raw customer messages, then classifies, enriches, routes and escalates each one as a structured JSON record.</p>
+        <p class="hard"><b>Design choice:</b> the LLM only classifies. Routing and escalation run as plain code, so every decision can be audited and tested.</p>
+        <ul class="tags"><li>n8n</li><li>LLM</li><li>Python</li><li>JSON mode</li></ul>
+        <a class="repo" href="https://github.com/hassanalmoughabat/Arc-Vault-Assessment">Arc-Vault-Assessment ↗</a>
+      </article>
+      <article class="project" id="p-laser">
+        <h3>LaserCraft <small>TypeScript</small></h3>
+        <p>An e-commerce storefront for custom laser-cut products. Upload a PNG, and the page turns it into a silhouette you can position on the product.</p>
+        <ul class="tags"><li>React</li><li>Fabric.js</li><li>Tailwind</li><li>shadcn/ui</li></ul>
+        <a class="repo" href="https://github.com/hassanalmoughabat/Laset_Cutt">Laset_Cutt ↗</a>
+      </article>
+      <article class="project" id="p-transfer">
+        <h3>WiFi File Transfer <small>Go</small></h3>
+        <p>One Go binary with the web UI embedded. Run it and it prints its LAN address. Any phone or laptop on the network can then upload files, download them, grab a folder as a zip, or paste text.</p>
+        <ul class="tags"><li>Go</li><li>net/http</li><li>go:embed</li><li>vanilla JS</li></ul>
+        <a class="repo" href="https://github.com/hassanalmoughabat/File_transfer">File_transfer ↗</a>
+      </article>
+      <article class="project" id="p-cyber">
+        <h3>42 Cyber Piscine <small>Python</small></h3>
+        <p>A two-week security bootcamp: an SQL injection scanner (Vaccine), a TOTP generator (ft_otp), a Tor hidden service (ft_onion), reverse engineering, and malware analysis exercises.</p>
+        <ul class="tags"><li>security</li><li>Python</li><li>Tor</li><li>TOTP</li></ul>
+        <a class="repo" href="https://github.com/hassanalmoughabat/cybersecurity-pisicne-projects">cybersecurity-pisicne-projects ↗</a>
+      </article>
+    </div>
+  </section>
+
+  <footer>
+    <span>Hassan Al Moughabat · 42 Beirut</span>
+    <button class="theme" type="button" id="theme">Switch theme</button>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var NS = "http://www.w3.org/2000/svg";
+  // ring radius, angle in degrees (0 = top, clockwise)
+  var nodes = [
+    { id: "libft", label: "libft", r: 0, a: 0, kind: "cur", t: "p-libft" },
+    { id: "gnl", label: "get_next_line", r: 95, a: 250, kind: "cur", t: "p-gnl" },
+    { id: "printf", label: "ft_printf", r: 95, a: 110, kind: "cur", t: "p-printf" },
+    { id: "philo", label: "philosophers", r: 170, a: 205, kind: "cur", t: "p-philo" },
+    { id: "minishell", label: "minishell", r: 170, a: 55, kind: "cur", t: "p-minishell" },
+    { id: "cub3d", label: "cub3D", r: 235, a: 150, kind: "wip", t: "p-cub3d" },
+    { id: "cpp09", label: "cpp09", r: 235, a: 290, kind: "cur", t: "p-cpp09" },
+    { id: "cerebro", label: "cerebro", r: 305, a: 10, kind: "own", t: "p-cerebro" },
+    { id: "arcvault", label: "arcvault", r: 305, a: 82, kind: "own", t: "p-arcvault" },
+    { id: "laser", label: "lasercraft", r: 305, a: 190, kind: "own", t: "p-laser" },
+    { id: "transfer", label: "transfer", r: 305, a: 256, kind: "own", t: "p-transfer" },
+    { id: "cyber", label: "cyber piscine", r: 305, a: 330, kind: "own", t: "p-cyber" }
+  ];
+  var edges = [["libft","gnl"],["libft","printf"],["gnl","philo"],["printf","minishell"],["libft","minishell"],["philo","cub3d"],["minishell","cub3d"],["minishell","cpp09"],["philo","cpp09"]];
+  var pos = {};
+  nodes.forEach(function (n) {
+    var rad = (n.a - 90) * Math.PI / 180;
+    pos[n.id] = { x: Math.round(n.r * Math.cos(rad)), y: Math.round(n.r * Math.sin(rad)) };
+  });
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS(NS, tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    parent.appendChild(e); return e;
+  }
+  var rings = document.getElementById("rings");
+  [95, 170, 235].forEach(function (r) { el("circle", { class: "ring", r: r }, rings); });
+  el("circle", { class: "ring outer", r: 305 }, rings);
+  var eg = document.getElementById("edges");
+  edges.forEach(function (e) {
+    var a = pos[e[0]], b = pos[e[1]];
+    el("line", { class: "edge", x1: a.x, y1: a.y, x2: b.x, y2: b.y }, eg);
+  });
+  var ng = document.getElementById("nodes");
+  nodes.forEach(function (n) {
+    var p = pos[n.id];
+    var g = el("g", { class: "node " + n.kind, tabindex: "0", role: "link", "aria-label": n.label + " — jump to project" }, ng);
+    el("circle", { cx: p.x, cy: p.y, r: n.id === "libft" ? 13 : 9 }, g);
+    var right = p.x >= 0, below = n.r === 0;
+    var tx = below ? p.x : p.x + (right ? 16 : -16);
+    var ty = below ? p.y + 34 : p.y + 5;
+    var txt = el("text", { x: tx, y: ty, "text-anchor": below ? "middle" : (right ? "start" : "end") }, g);
+    txt.textContent = n.label;
+    function go() {
+      var card = document.getElementById(n.t);
+      card.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "center" });
+      card.classList.add("flash");
+      setTimeout(function () { card.classList.remove("flash"); }, 1600);
+    }
+    g.addEventListener("click", go);
+    g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } });
+  });
+
+  var root = document.documentElement, btn = document.getElementById("theme");
+  try { var saved = localStorage.getItem("theme"); if (saved) root.dataset.theme = saved; } catch (e) {}
+  btn.addEventListener("click", function () {
+    var dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    root.dataset.theme = dark ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+  });
+})();
+</script>
+</body>
+</html>
